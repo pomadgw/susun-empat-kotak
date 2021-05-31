@@ -1,6 +1,7 @@
 const path = require('path')
 const chokidar = require('chokidar')
 const { exec } = require('child_process')
+const debounce = require('lodash/debounce')
 
 const crateDir = path.resolve(__dirname, './wasm-src')
 const crateSource = path.resolve(__dirname, './wasm-src')
@@ -10,7 +11,7 @@ const watcher = chokidar.watch(`${crateSource}/src/**/*.rs`, {
   persistent: true
 })
 
-const compileWebm = () => {
+const compileWebm = debounce(() => {
   exec(
     'wasm-pack build --target web',
     { cwd: crateDir },
@@ -24,7 +25,7 @@ const compileWebm = () => {
       console.log(stderr)
     }
   )
-}
+}, 250)
 
 watcher
   .on('add', function (path) {
