@@ -1,7 +1,7 @@
 mod utils;
 
-use wasm_bindgen::prelude::*;
 use js_sys::*;
+use wasm_bindgen::prelude::*;
 
 use std::ops::{Index, IndexMut};
 
@@ -96,12 +96,7 @@ pub fn create_i_block() -> Matrix {
     Matrix {
         width: 4,
         height: 4,
-        matrix: vec![
-            0, 0, 0, 0,
-            1, 1, 1, 1,
-            0, 0, 0, 0,
-            0, 0, 0, 0,
-        ],
+        matrix: vec![0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
     }
 }
 
@@ -110,11 +105,7 @@ pub fn create_j_block() -> Matrix {
     Matrix {
         width: 3,
         height: 3,
-        matrix: vec![
-            1, 0, 0,
-            1, 1, 1,
-            0, 0, 0,
-        ],
+        matrix: vec![1, 0, 0, 1, 1, 1, 0, 0, 0],
     }
 }
 
@@ -123,11 +114,7 @@ pub fn create_l_block() -> Matrix {
     Matrix {
         width: 3,
         height: 3,
-        matrix: vec![
-            0, 0, 1,
-            1, 1, 1,
-            0, 0, 0,
-        ],
+        matrix: vec![0, 0, 1, 1, 1, 1, 0, 0, 0],
     }
 }
 
@@ -136,10 +123,7 @@ pub fn create_o_block() -> Matrix {
     Matrix {
         width: 2,
         height: 2,
-        matrix: vec![
-            1, 1,
-            1, 1,
-        ],
+        matrix: vec![1, 1, 1, 1],
     }
 }
 
@@ -148,11 +132,7 @@ pub fn create_s_block() -> Matrix {
     Matrix {
         width: 3,
         height: 3,
-        matrix: vec![
-            0, 1, 1,
-            1, 1, 0,
-            0, 0, 0,
-        ],
+        matrix: vec![0, 1, 1, 1, 1, 0, 0, 0, 0],
     }
 }
 
@@ -161,11 +141,7 @@ pub fn create_t_block() -> Matrix {
     Matrix {
         width: 3,
         height: 3,
-        matrix: vec![
-            0, 1, 0,
-            1, 1, 1,
-            0, 0, 0,
-        ],
+        matrix: vec![0, 1, 0, 1, 1, 1, 0, 0, 0],
     }
 }
 
@@ -174,11 +150,7 @@ pub fn create_z_block() -> Matrix {
     Matrix {
         width: 3,
         height: 3,
-        matrix: vec![
-            1, 1, 0,
-            0, 1, 1,
-            0, 0, 0,
-        ],
+        matrix: vec![1, 1, 0, 0, 1, 1, 0, 0, 0],
     }
 }
 
@@ -206,9 +178,8 @@ pub fn create_block(block_type: BlockType) -> Matrix {
     }
 }
 
-
 #[wasm_bindgen]
-extern {
+extern "C" {
     fn alert(s: &str);
 }
 
