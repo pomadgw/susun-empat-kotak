@@ -43,6 +43,8 @@ impl Matrix {
         self[(x, y)] = value;
     }
 
+    // algorithm is taken from
+    // https://www.geeksforgeeks.org/rotate-a-matrix-by-90-degree-in-clockwise-direction-without-using-any-extra-space/
     pub fn rotate_right(&mut self) {
         assert_eq!(self.width, self.height);
         let n = self.height;
