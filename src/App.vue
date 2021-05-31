@@ -1,16 +1,15 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <Grid />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Grid from './components/Grid.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    Grid
   }
 })
 </script>
@@ -23,5 +22,9 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+:root {
+  --square-size: 20px;
 }
 </style>
