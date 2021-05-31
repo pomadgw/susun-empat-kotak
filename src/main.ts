@@ -1,16 +1,22 @@
-// import { createApp } from 'vue'
-// import App from './App.vue'
+/* eslint-disable camelcase */
+import { createApp } from 'vue'
+import App from './App.vue'
 
-import wasm, { Matrix } from '../wasm-src/pkg'
+import initWasm, { create_block } from '../wasm-src/pkg'
 
-// createApp(App).mount('#app')
+initWasm().then(() => {
+  for (let t = 0; t < 7; t++) {
+    const m = create_block(t)
+    console.log(m.toString())
+    m.rotate_right()
+    console.log(m.toString())
+    m.rotate_right()
+    console.log(m.toString())
+    m.rotate_right()
+    console.log(m.toString())
+    m.rotate_right()
+    console.log(m.toString())
+  }
 
-wasm().then((e) => {
-  const m = Matrix.new(3, 3)
-  m.set(0, 0, 1)
-  m.set(0, 1, 2)
-  m.set(0, 2, 3)
-  console.log(m.to_uint8array)
-  m.rotate_right()
-  console.log(m.to_uint8array)
+  createApp(App).mount('#app')
 })

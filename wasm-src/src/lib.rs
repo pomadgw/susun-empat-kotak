@@ -59,6 +59,22 @@ impl Matrix {
             }
         }
     }
+
+    #[allow(non_snake_case)]
+    pub fn toString(&self) -> String {
+        let mut result = String::from("");
+
+        for i in 0..self.height {
+            let mut row = String::from("");
+            for j in 0..self.width {
+                row.push_str(&self[(i, j)].to_string());
+            }
+            row.push_str("\n");
+            result.push_str(&row);
+        }
+
+        result
+    }
 }
 
 impl Index<Coord> for Matrix {
@@ -74,6 +90,122 @@ impl IndexMut<Coord> for Matrix {
         &mut self.matrix[index.0 * self.height + index.1]
     }
 }
+
+#[wasm_bindgen]
+pub fn create_i_block() -> Matrix {
+    Matrix {
+        width: 4,
+        height: 4,
+        matrix: vec![
+            0, 0, 0, 0,
+            1, 1, 1, 1,
+            0, 0, 0, 0,
+            0, 0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_j_block() -> Matrix {
+    Matrix {
+        width: 3,
+        height: 3,
+        matrix: vec![
+            1, 0, 0,
+            1, 1, 1,
+            0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_l_block() -> Matrix {
+    Matrix {
+        width: 3,
+        height: 3,
+        matrix: vec![
+            0, 0, 1,
+            1, 1, 1,
+            0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_o_block() -> Matrix {
+    Matrix {
+        width: 2,
+        height: 2,
+        matrix: vec![
+            1, 1,
+            1, 1,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_s_block() -> Matrix {
+    Matrix {
+        width: 3,
+        height: 3,
+        matrix: vec![
+            0, 1, 1,
+            1, 1, 0,
+            0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_t_block() -> Matrix {
+    Matrix {
+        width: 3,
+        height: 3,
+        matrix: vec![
+            0, 1, 0,
+            1, 1, 1,
+            0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub fn create_z_block() -> Matrix {
+    Matrix {
+        width: 3,
+        height: 3,
+        matrix: vec![
+            1, 1, 0,
+            0, 1, 1,
+            0, 0, 0,
+        ],
+    }
+}
+
+#[wasm_bindgen]
+pub enum BlockType {
+    I = 0,
+    J = 1,
+    L = 2,
+    O = 3,
+    S = 4,
+    T = 5,
+    Z = 6,
+}
+
+#[wasm_bindgen]
+pub fn create_block(block_type: BlockType) -> Matrix {
+    match block_type {
+        BlockType::I => create_i_block(),
+        BlockType::J => create_j_block(),
+        BlockType::L => create_l_block(),
+        BlockType::O => create_o_block(),
+        BlockType::S => create_s_block(),
+        BlockType::T => create_t_block(),
+        BlockType::Z => create_z_block(),
+    }
+}
+
 
 #[wasm_bindgen]
 extern {
