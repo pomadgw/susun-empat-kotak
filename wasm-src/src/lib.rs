@@ -92,6 +92,28 @@ impl IndexMut<Coord> for Matrix {
 }
 
 #[wasm_bindgen]
+pub fn create_playfield() -> Matrix {
+    Matrix {
+        width: 10,
+        height: 10,
+        matrix: vec![0; 400]
+    }
+}
+
+#[wasm_bindgen]
+pub fn put_block(playfield: &mut Matrix, block: &Matrix, x: usize, y: usize) {
+    log(&format!("x: {}, y: {}, block.w: {}, block.h: {}", x, y, block.width, block.height));
+    assert!(x + block.width < playfield.width);
+    assert!(y + block.height < playfield.height);
+
+    for ly in 0..block.height {
+        for lx in 0..block.width {
+            playfield[(lx + x, ly + y)] = block[(lx, ly)];
+        }
+    }
+}
+
+#[wasm_bindgen]
 pub fn create_i_block() -> Matrix {
     Matrix {
         width: 4,
@@ -182,6 +204,25 @@ pub fn create_block(block_type: BlockType) -> Matrix {
 extern "C" {
     fn alert(s: &str);
 }
+
+#[wasm_bindgen]
+extern "C" {
+    // Use `js_namespace` here to bind `console.log(..)` instead of just
+    // `log(..)`
+    #[wasm_bindgen(js_namespace = console)]
+    fn log(s: &str);
+
+    // The `console.log` is quite polymorphic, so we can bind it with multiple
+    // signatures. Note that we need to use `js_name` to ensure we always call
+    // `log` in JS.
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_u32(a: u32);
+
+    // Multiple arguments too!
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn log_many(a: &str, b: &str);
+}
+
 
 #[wasm_bindgen]
 pub fn greet() {
