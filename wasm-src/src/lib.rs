@@ -95,7 +95,7 @@ impl IndexMut<Coord> for Matrix {
 pub fn create_playfield() -> Matrix {
     Matrix {
         width: 10,
-        height: 10,
+        height: 40,
         matrix: vec![0; 400]
     }
 }
